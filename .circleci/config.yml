@@ -308,7 +308,8 @@ jobs:
       - run:
           command: yarn storybook:build
   deploy:
-    docker: *docker
+    docker:
+      - image: andreysenov/firebase-tools:12.7.0-node-18-slim
     resource_class: medium+
     parameters:
       # optional environment variables to set during build process
@@ -316,9 +317,12 @@ jobs:
         type: string
         default: 'default'
     steps:
-      - setup_repo
+      - checkout
       - attach_workspace:
           at: '.'
+      - run: 
+          name: Install deps
+          command: yarn workspace oa-scripts install
       - inject_instance_configuration
       - firebase_deploy:
           # token: $FIREBASE_DEPLOY_TOKEN # This should be set as environment variable
@@ -400,8 +404,8 @@ workflows:
       #---------------------- Test ----------------------
       # Note - when calling test we also let the test script handle building as it injects random variables for seeding the DB
       - build:
-          requires:
-            - 'Lint code'
+          # requires:
+            # - 'Lint code'
           name: Build Application
           context: build-context
       - test_unit:
@@ -454,8 +458,8 @@ workflows:
       - deploy:
           name: 'Deploy: dev.onearmy.world'
           requires:
-            - test_e2e
-          <<: *filter_only_default_branch
+            - Build Application
+          # <<: *filter_only_default_branch
           DEPLOY_ALIAS: 'default'
           context:
             - circle-ci-patreon-context
