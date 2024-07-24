@@ -9439,21 +9439,6 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@uppy/compressor@npm:^1.1.4":
-  version: 1.1.4
-  resolution: "@uppy/compressor@npm:1.1.4"
-  dependencies:
-    "@transloadit/prettier-bytes": ^0.3.4
-    "@uppy/utils": ^5.9.0
-    compressorjs: ^1.2.1
-    preact: ^10.5.13
-    promise-queue: ^2.2.5
-  peerDependencies:
-    "@uppy/core": ^3.11.2
-  checksum: 69ae5efe1ffacd9c990f1660cb92828199b4f5e70af884119b9a1d257f0fa7901fa3e2da0ad0d240943420491ed659977dd1a9f4b5a372aaa5bbf5ae5132be0a
-  languageName: node
-  linkType: hard
-
 "@uppy/core@npm:^3.11.3":
   version: 3.11.3
   resolution: "@uppy/core@npm:3.11.3"
@@ -22808,7 +22793,6 @@ __metadata:
     "@types/react-select": ^2.0.17
     "@typescript-eslint/eslint-plugin": ^7.13.0
     "@typescript-eslint/parser": ^7.13.0
-    "@uppy/compressor": ^1.1.4
     "@uppy/core": ^3.11.3
     "@uppy/dashboard": ^3.8.3
     "@uppy/drag-drop": ^3.1.0
@@ -24223,13 +24207,6 @@ __metadata:
   version: 6.0.0
   resolution: "promise-breaker@npm:6.0.0"
   checksum: 84939eb36b30ad39c141350f15d42fcfcfdeea0c4f288cf4d7b794450cc93823ea211ab76fa9edcda9ddc880f62829a63630ff04ff76f0c611b6f31a73a0a000
-  languageName: node
-  linkType: hard
-
-"promise-queue@npm:^2.2.5":
-  version: 2.2.5
-  resolution: "promise-queue@npm:2.2.5"
-  checksum: 41dc832a0674ea74f5f9bb4812566769d862eb52a19bdf3773045429f07b2bc433af5d939baaf4930191e37202ea31ec57e43a5a2994c101cb729069fe3eac6a
   languageName: node
   linkType: hard
 
