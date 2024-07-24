@@ -19,7 +19,6 @@ interface IProps {
   onFilesChange: (fileMeta: IFileMeta) => void
   value?: IValue
   hasText?: boolean
-  multiple?: boolean
   dataTestId?: string
 }
 
@@ -27,7 +26,7 @@ export const ImageInput = (props: IProps) => {
   const fileInputRef = useRef<HTMLInputElement>(null)
   const prevPropsValue = useRef<IInputValue | IMultipleInputValue>()
 
-  const { dataTestId, multiple, onFilesChange, value } = props
+  const { dataTestId, onFilesChange, value } = props
   const [inputFiles, setInputFiles] = useState<File[]>([])
   const [convertedFiles, setConvertedFiles] = useState<IConvertedFileMeta[]>([])
   const [presentFiles, setPresentFiles] = useState<IMultipleInputValue>(
@@ -53,8 +52,7 @@ export const ImageInput = (props: IProps) => {
     nextFiles[index] = newFile
     setConvertedFiles(convertedFiles)
 
-    const value = props.multiple ? convertedFiles : convertedFiles[0]
-    props.onFilesChange(value)
+    props.onFilesChange(convertedFiles[0])
   }
 
   const handleImageDelete = (event: Event) => {
@@ -84,21 +82,20 @@ export const ImageInput = (props: IProps) => {
         accept={{
           'image/*': ['.jpeg', '.jpg', '.png', '.gif', '.svg', '.webp'],
         }}
-        multiple={multiple}
+        multiple={false}
         onDrop={onDrop}
       >
         {({ getRootProps, getInputProps, rootRef }) => (
           <ImageInputWrapper
             ref={rootRef}
-            hasUploadedImg={showUploadedImg}
             {...getRootProps()}
+            hasUploadedImg={showUploadedImg}
           >
             <input
               ref={fileInputRef}
               data-testid={dataTestId || 'image-input'}
               {...getInputProps()}
             />
-
             {showUploadedImg && <Image src={src} />}
 
             {!showUploadedImg && (
@@ -107,13 +104,11 @@ export const ImageInput = (props: IProps) => {
                 handleConvertedFileChange={handleConvertedFileChange}
               />
             )}
-
             {!hasImages && (
               <Button small variant="outline" icon="image" type="button">
                 Upload Image
               </Button>
             )}
-
             {hasImages && (
               <DeleteImage onClick={(event) => handleImageDelete(event)} />
             )}
