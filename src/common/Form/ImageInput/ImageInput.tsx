@@ -33,19 +33,20 @@ export const ImageInput = (props: IProps) => {
   const [presentFiles, setPresentFiles] = useState<IMultipleInputValue>(
     getPresentFiles(value),
   )
-  const [imageCorrupt, setImageCorrupt] = useState<boolean>(false)
+  const [isImageCorrupt, setIsImageCorrupt] = useState(false)
   const [showErrorModal, setShowErrorModal] = useState(false)
 
   const onDrop = async (selectedImage) => {
     try {
       await imageValid(selectedImage[0])
-      setImageCorrupt(false)
+      setIsImageCorrupt(false)
 
       try {
         const compressedImage = await compressImage(selectedImage[0])
         selectedImage[0] = compressedImage
       } catch (compressionError) {
-        window.console.error(
+        // eslint-disable-next-line no-console
+        console.error(
           'Image compression failed, using original image: ',
           compressionError,
         )
@@ -53,7 +54,7 @@ export const ImageInput = (props: IProps) => {
 
       setInputFiles(selectedImage)
     } catch (validationError) {
-      setImageCorrupt(true)
+      setIsImageCorrupt(true)
       setShowErrorModal(true)
     }
   }
@@ -131,7 +132,7 @@ export const ImageInput = (props: IProps) => {
         isOpen={showErrorModal}
         onDidDismiss={() => setShowErrorModal(false)}
       >
-        {imageCorrupt && (
+        {isImageCorrupt && (
           <Flex
             mt={[1, 1, 1]}
             sx={{
